@@ -3,10 +3,14 @@
 using std::string;
 class Object {
  public:
-  Object();
-  ~Object();
+  Object() = default;
+  ~Object(){}
 
  public:
-  virtual bool encoding(const Object &obj, std::string &str) = 0;
-  virtual bool decoding(const std::string &str, Object &obj) = 0;
+  virtual bool encoding(std::string &str) = 0;
+  // 区间左开右闭
+  virtual bool decoding(const std::string &str, std::size_t start_pos,
+                        std::size_t end_pos) = 0;
+  virtual bool set_content(const void *input) { return true; }
+  virtual void *get_content() { return nullptr; }
 };
